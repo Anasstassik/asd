@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+double total_sum(int n, double x) {
+    if (n == 1) {
+        return  x;
+    }
+
+    double value;
+    double prev_value = total_sum(n - 1, x);
+
+    if (n == 2) {
+        value = x*x/2;
+    } else {
+        value = -prev_value*x*(n-1)*(n-2)/(n*n-n);
+    }
+    return prev_value + value;
+}
+
+int main() {
+    int n;
+    double x;
+    printf("Enter n and x: ");
+    scanf("%d %lf", &n, &x);
+
+    if (x <= -1 || x >= 2) {
+        printf("x must be in range -1 < x < 2\n");
+        return 1;
+    }
+
+    double sum = total_sum(n, x);
+    double ln = sum/(1+x);
+
+    printf("x: %.2lf\n", x);
+    printf("n: %d\n", n);
+    printf("ln(1 + x): %.6lf\n", ln);
+    printf("sum: %.6lf\n", sum);
+}
